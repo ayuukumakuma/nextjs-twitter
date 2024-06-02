@@ -1,19 +1,14 @@
-up-data ud u:
-	@echo "Running up-data"
-	docker compose -f compose_data.yml up -d
+# docker compose
+up u:
+	docker compose -f ./compose_data.yml up -d
+down d:
+	docker compose down
+restart r: u d
 
-down-data dd d:
-	@echo "Running down-data"
-	docker compose -f compose_data.yml down
+# prisma migration
+migrate m:
+	bunx prisma migrate dev --name migration
 
-restart r: d u
-
-prisma-migrate:
-	@echo "Running prisma migrate"
-	bunx prisma migrate dev --name migrate
-
-prisma-generate:
-	@echo "Running prisma generate"
-	bunx prisma generate
-
-migrate: prisma-migrate prisma-generate
+# bun build
+bun-build bb:
+	bun run build
