@@ -1,9 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./styles.module.scss";
-import { Provider } from "@/components/Provider";
+import { signIn } from "next-auth/react";
 
 type FormValues = {
   email: string;
@@ -11,40 +10,34 @@ type FormValues = {
   password: string;
 };
 
-const Signup = () => {
+const CreateUser = () => {
   const [formValues, setFormValues] = useState<FormValues>({
     email: "",
     name: "",
     password: "",
   });
-  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/auth/signup", {
+      const response = await fetch("/api/auth/create-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formValues),
       });
-      if (response.ok) {
-        // apiではユーザー作成のみ行われるので、サインイン処理を行う
-        await fetch("/api/auth/signin/credentials", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: formValues.email,
-            password: formValues.password,
-          }),
+
+      if (response?.ok) {
+        const response = await signIn("credentials", {
+          email: formValues.email,
+          password: formValues.password,
+          callbackUrl: "/",
         });
-        router.push("/");
-      } else {
-        console.error(response);
+        if (!response?.ok) throw new Error("Failed to sign in");
       }
+
+      if (!response?.ok) throw new Error("Failed to create");
     } catch (error) {
       console.error(error);
     }
@@ -58,25 +51,42 @@ const Signup = () => {
   };
 
   return (
-    <Provider>
-      <h1>Signup</h1>
+    <>
+      <h1>Create User</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label}>
           Email
-          <input type="email" name="email" onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            value={formValues.email}
+            onChange={handleChange}
+          />
         </label>
         <label className={styles.label}>
           Name
-          <input type="text" name="name" onChange={handleChange} />
+          <input
+            type="text"
+            name="name"
+            value={formValues.name}
+            onChange={handleChange}
+          />
         </label>
         <label className={styles.label}>
           Password
-          <input type="password" name="password" onChange={handleChange} />
+          <input
+            type="password"
+            name="password"
+            value={formValues.password}
+            onChange={handleChange}
+          />
         </label>
-        <input className={styles.submit} type="submit" />
+        <button className={styles.submit} type="submit">
+          Create
+        </button>
       </form>
-    </Provider>
+    </>
   );
 };
 
-export default Signup;
+export default CreateUser;

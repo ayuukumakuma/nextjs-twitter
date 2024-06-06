@@ -1,6 +1,6 @@
 import { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import * as bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma/client";
 
 const isValidCredentials = (
@@ -21,6 +21,7 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
+      // 実際に認証するときに走る
       async authorize(credentials) {
         if (!isValidCredentials(credentials)) {
           throw new Error("Invalid credentials");
