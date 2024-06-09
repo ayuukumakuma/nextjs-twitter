@@ -1,10 +1,15 @@
 import { auth, signOut } from "@/auth";
-import styles from "./styles.module.scss";
+import styles from "./page.module.scss";
 import Image from "next/image";
+import { Metadata } from "next";
 
-const Home = async () => {
+export const metadata: Metadata = {
+  title: "profile",
+};
+
+const Profile = async () => {
   const session = await auth();
-  console.log(session);
+
   return (
     <div className={styles.container}>
       {session && (
@@ -29,7 +34,7 @@ const Home = async () => {
       <form
         action={async () => {
           "use server";
-          await signOut();
+          await signOut({ redirectTo: "/hello" });
         }}
       >
         <button className={styles.signOut} type="submit">
@@ -40,4 +45,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default Profile;

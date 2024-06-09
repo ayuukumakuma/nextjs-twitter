@@ -1,0 +1,44 @@
+@import "@/style/variables";
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.leftSideBar {
+  flex: 1;
+  background: #dde6ed;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.linkWrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  gap: 24px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: $text;
+  font-weight: bold;
+  color: $black;
+}
+
+.children {
+  max-width: 800px;
+  flex: 2;
+}
+
+.rightSideBar {
+  flex: 1;
+  background: #dde6ed;
+}
