@@ -8,14 +8,16 @@
 }
 
 .leftSideBar {
+  position: relative;
   flex: 1;
   background: #dde6ed;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .linkWrapper {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,6 +33,40 @@
   font-size: $text;
   font-weight: bold;
   color: $black;
+}
+
+.profileCard {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  gap: 16px;
+}
+
+.profileCardUserInfo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.profileUserName {
+  font-size: 18px;
+  font-weight: bold;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profileImage {
+  border-radius: 50%;
 }
 
 .children {
