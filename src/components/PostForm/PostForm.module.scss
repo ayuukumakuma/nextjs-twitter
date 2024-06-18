@@ -1,0 +1,37 @@
+@import "@/style/variables";
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  display: block;
+  font-size: 20px;
+  padding: 8px;
+  color: $black;
+  resize: none;
+  border: 2px solid $black;
+  border-radius: 10px;
+}
+
+.submit {
+  width: 100%;
+  font-size: 20px;
+  height: 56px;
+  color: $white;
+  background-color: $black;
+  text-align: center;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: $white;
+    color: $black;
+    border: 2px solid $black;
+    box-sizing: border-box;
+  }
+}

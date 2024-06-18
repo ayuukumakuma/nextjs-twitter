@@ -1,5 +1,5 @@
 import { signIn } from "@/auth";
-import styles from "./styles.module.scss";
+import Styles from "./GoogleSignInButton.module.scss";
 
 const GoogleSignInButton = () => {
   return (
@@ -9,7 +9,7 @@ const GoogleSignInButton = () => {
         await signIn("google");
       }}
     >
-      <button className={styles.button} type="submit" />
+      <button className={Styles.button} type="submit" />
     </form>
   );
 };

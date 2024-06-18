@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import styles from "./layout.module.scss";
+import Styles from "./layout.module.scss";
 import { FaArrowRightToBracket, FaHouse, FaUser } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,33 +12,33 @@ const Layout = async ({ children }: Props) => {
   const session = await auth();
   if (!session) return;
   return (
-    <div className={styles.container}>
-      <div className={styles.leftSideBar}>
-        <div className={styles.linkWrapper}>
-          <Link className={styles.link} href="/">
+    <div className={Styles.container}>
+      <div className={Styles.leftSideBar}>
+        <div className={Styles.linkWrapper}>
+          <Link className={Styles.link} href="/">
             Home
             <FaHouse size={"30"} color={"#373a40"} />
           </Link>
-          <Link className={styles.link} href="/profile">
+          <Link className={Styles.link} href="/profile">
             Profile
             <FaUser size={"30"} color={"#373a40"} />
           </Link>
         </div>
-        <div className={styles.profileCard}>
+        <div className={Styles.profileCard}>
           <Link href="/profile">
-            <div className={styles.profileCardUserInfo}>
+            <div className={Styles.profileCardUserInfo}>
               <Image
-                className={styles.profileImage}
+                className={Styles.profileImage}
                 src={session.user?.image || ""}
                 alt="Picture of the author"
                 width={50}
                 height={50}
               />
-              <div className={styles.profileUserName}>{session.user?.name}</div>
+              <div className={Styles.profileUserName}>{session.user?.name}</div>
             </div>
           </Link>
           <form
-            className={styles.form}
+            className={Styles.form}
             action={async () => {
               "use server";
               await signOut({ redirectTo: "/hello" });
@@ -50,8 +50,8 @@ const Layout = async ({ children }: Props) => {
           </form>
         </div>
       </div>
-      <div className={styles.children}>{children}</div>
-      <div className={styles.rightSideBar}></div>
+      <div className={Styles.children}>{children}</div>
+      <div className={Styles.rightSideBar}></div>
     </div>
   );
 };

@@ -15,5 +15,5 @@ export default auth(async function middleware(req) {
 
 export const config = {
   // _next/static等はキャッシュが格納されているのでmiddlewareを適用しない
-  matcher: ["/((?!api/auth|hello|_next/static|static|favicon.ico).*)"],
+  matcher: ["/((?!api|hello|_next/static|static|favicon.ico).*)"],
 };

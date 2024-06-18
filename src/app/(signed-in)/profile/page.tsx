@@ -1,5 +1,5 @@
 import { auth, signOut } from "@/auth";
-import styles from "./page.module.scss";
+import Styles from "./page.module.scss";
 import Image from "next/image";
 import { Metadata } from "next";
 
@@ -11,11 +11,11 @@ const Profile = async () => {
   const session = await auth();
 
   return (
-    <div className={styles.container}>
+    <div className={Styles.container}>
       {session && (
-        <div className={styles.userInfoWrapperVertical}>
-          <h1 className={styles.userInfoTitle}>Login User</h1>
-          <div className={styles.userInfoWrapperHorizontal}>
+        <div className={Styles.userInfoWrapperVertical}>
+          <h1 className={Styles.userInfoTitle}>Login User</h1>
+          <div className={Styles.userInfoWrapperHorizontal}>
             <div>
               <Image
                 src={session.user?.image || ""}
@@ -24,20 +24,21 @@ const Profile = async () => {
                 height={100}
               />
             </div>
-            <div className={styles.userInfoWrapperVertical}>
+            <div className={Styles.userInfoWrapperVertical}>
               <div>name: {session.user?.name}</div>
               <div>email: {session.user?.email}</div>
             </div>
           </div>
         </div>
       )}
+      ここに投稿ユーザーが自分のものだけを表示する(現在のタイムラインのロジック)
       <form
         action={async () => {
           "use server";
           await signOut({ redirectTo: "/hello" });
         }}
       >
-        <button className={styles.signOut} type="submit">
+        <button className={Styles.signOut} type="submit">
           Sign Out
         </button>
       </form>
