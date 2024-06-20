@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
     if (content === "") throw new Error("Content is required");
 
     const post = await prisma.post.create({
-      data: { content: content, User: { connect: { id: user.id } } },
+      data: { content: content, user: { connect: { id: user.id } } },
     });
 
     return Response.json(post, { status: 201 });
