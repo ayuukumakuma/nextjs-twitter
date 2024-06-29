@@ -6,6 +6,8 @@ const { auth } = NextAuth(authConfig);
 export default auth(async function middleware(req) {
   const { origin } = req.nextUrl;
 
+  console.log(origin);
+  console.log(req.auth);
   // session情報がない場合は/helloへリダイレクト
   if (!req.auth) {
     const newUrl = new URL("/hello", origin);
