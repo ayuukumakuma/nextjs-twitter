@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma/client";
 import checkSession from "@/utils/checkSession";
 
 export const GET = async (
-  _: Response,
+  _: Request,
   { params }: { params: { userId: string } },
 ) => {
   try {
