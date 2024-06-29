@@ -1,16 +1,41 @@
+"use client";
 import { PostForm } from "@/components/PostForm";
 import Styles from "./page.module.scss";
-import { Metadata } from "next";
-import { PostList } from "@/components/PostList";
+import { PostList, PostListItem } from "@/components/PostList";
+import { useEffect, useState } from "react";
 
-export const metadata: Metadata = {
-  title: "home",
-};
-const Home = async () => {
+const Home = () => {
+  const [posts, setPosts] = useState<PostListItem[]>([]);
+
+  const fetchPosts = async () => {
+    try {
+      const postResponse = await fetch("/api/posts", {
+        method: "GET",
+      });
+      const postData: PostListItem[] = await postResponse.json();
+
+      setPosts(postData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+    const timer = setInterval(() => {
+      fetchPosts();
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <div className={Styles.container}>
+      <div className={Styles.title}>Time Line</div>
       <PostForm />
-      <PostList />
+      <PostList posts={posts} />
     </div>
   );
 };

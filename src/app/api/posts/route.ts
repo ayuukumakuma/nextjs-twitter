@@ -23,9 +23,22 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async () => {
   try {
-    const user = await checkSession();
+    const currentUser = await checkSession();
+    if (!currentUser || !currentUser.id) throw new Error("Unauthorized");
+
+    const userIds = await prisma.follow
+      .findMany({
+        where: { followerId: currentUser.id },
+        select: { userId: true },
+      })
+      .then((follows) => follows.map((follow) => follow.userId));
+
+    userIds.push(currentUser.id);
+
     const posts = await prisma.post.findMany({
-      where: { userId: user.id },
+      where: { userId: { in: userIds } },
+      include: { user: true },
+      orderBy: { createdAt: "desc" },
     });
 
     return Response.json(posts, { status: 200 });

@@ -1,16 +1,12 @@
 .container {
   height: 100vh;
+  padding: 32px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  gap: 32px;
 }
 
 .title {
   font-size: $h1;
-}
-
-.description {
-  font-size: $text;
+  font-weight: bold;
 }

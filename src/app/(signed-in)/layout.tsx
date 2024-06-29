@@ -4,13 +4,19 @@ import { FaArrowRightToBracket, FaHouse, FaUser } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
 import { auth, signOut } from "@/auth";
+import { Metadata } from "next";
 
 type Props = {
   children: ReactNode;
 };
+
+export const metadata: Metadata = {
+  title: "home",
+};
+
 const Layout = async ({ children }: Props) => {
   const session = await auth();
-  if (!session) return;
+  if (!session || !session?.user) return;
   return (
     <div className={Styles.container}>
       <div className={Styles.leftSideBar}>
@@ -19,7 +25,7 @@ const Layout = async ({ children }: Props) => {
             Home
             <FaHouse size={"30"} color={"#373a40"} />
           </Link>
-          <Link className={Styles.link} href="/profile">
+          <Link className={Styles.link} href={`/users/${session.user.id}`}>
             Profile
             <FaUser size={"30"} color={"#373a40"} />
           </Link>

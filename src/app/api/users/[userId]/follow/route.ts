@@ -26,17 +26,14 @@ export const POST = async (
     const signInUser = await checkSession();
 
     const query = new URL(req.url).searchParams;
-    const followUserId = query.get("followUserId") ?? "";
+    const followerId = query.get("followerId") ?? "";
     const userId = params.userId;
 
-    // 第三者が他のユーザーをフォローすることを防ぐ
-    if (signInUser.id !== userId) throw new Error("Unauthorized");
-
     // 自分自身をフォローすることを防ぐ
-    if (signInUser.id === followUserId || userId === followUserId)
+    if (signInUser.id === followerId && userId === followerId)
       throw new Error("Unauthorized");
 
-    const followUser = await getUser(followUserId);
+    const followUser = await getUser(followerId);
 
     const user = await getUser(userId);
 
@@ -52,6 +49,7 @@ export const POST = async (
 
     return Response.json({ message: "success" }, { status: 201 });
   } catch (error) {
+    console.log(error);
     return Response.json({ message: error }, { status: 500 });
   }
 };
@@ -64,13 +62,10 @@ export const DELETE = async (
     const signInUser = await checkSession();
 
     const query = new URL(req.url).searchParams;
-    const followUserId = query.get("followUserId") ?? "";
+    const followerId = query.get("followerId") ?? "";
     const userId = params.userId;
 
-    // 第三者が他のユーザーをフォローを外すことを防ぐ
-    if (signInUser.id !== userId) throw new Error("Unauthorized");
-
-    const followUser = await getUser(followUserId);
+    const followUser = await getUser(followerId);
 
     const user = await getUser(userId);
 
@@ -89,6 +84,7 @@ export const DELETE = async (
 
     return Response.json({ message: "success" }, { status: 200 });
   } catch (error) {
+    console.log(error);
     return Response.json({ message: error }, { status: 500 });
   }
 };

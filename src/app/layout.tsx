@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 // Root Layoutで読み込んだcssはグローバルに適用される
-import "@/style/reset.css";
+import "@/styles/reset.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
