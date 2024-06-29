@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/prisma/client";
 import checkSession from "@/utils/checkSession";
-import { NextResponse } from "next/server";
 
 export const GET = async (
-  _: NextResponse,
+  _: Response,
   { params }: { params: { userId: string } },
 ) => {
   try {
