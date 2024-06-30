@@ -62,7 +62,6 @@ export const FollowerList = ({ userId }: Props) => {
   };
 
   const isFollowBack = ({ following }: { following: Follow[] }) => {
-    console.log(following);
     if (!following) return false;
     return following.some((following) => following.followerId === userId);
   };
@@ -72,18 +71,16 @@ export const FollowerList = ({ userId }: Props) => {
   }, []);
 
   return (
-    <div>
-      <ul>
-        {followers.map((follower) => (
-          <FollowerCard
-            key={follower.id}
-            follower={follower}
-            handleClickFollowButton={handleClickFollowButton}
-            handleClickUnFollowButton={handleClickUnFollowButton}
-            isFollowBack={isFollowBack({ following: follower.following })}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {followers.map((follower) => (
+        <FollowerCard
+          key={follower.id}
+          follower={follower}
+          handleClickFollowButton={handleClickFollowButton}
+          handleClickUnFollowButton={handleClickUnFollowButton}
+          isFollowBack={isFollowBack({ following: follower.following })}
+        />
+      ))}
+    </ul>
   );
 };

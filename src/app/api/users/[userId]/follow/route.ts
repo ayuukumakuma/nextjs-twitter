@@ -23,15 +23,9 @@ export const POST = async (
   { params }: { params: { userId: string } },
 ) => {
   try {
-    const signInUser = await checkSession();
-
     const query = new URL(req.url).searchParams;
     const followerId = query.get("followerId") ?? "";
     const userId = params.userId;
-
-    // 自分自身をフォローすることを防ぐ
-    if (signInUser.id === followerId && userId === followerId)
-      throw new Error("Unauthorized");
 
     const followUser = await getUser(followerId);
 

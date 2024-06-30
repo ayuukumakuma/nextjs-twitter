@@ -1,13 +1,10 @@
 import { prisma } from "@/lib/prisma/client";
-import checkSession from "@/utils/checkSession";
 
 export const GET = async (
   _: Request,
   { params }: { params: { userId: string } },
 ) => {
   try {
-    await checkSession();
-
     const user = await prisma.user.findUniqueOrThrow({
       where: { id: params.userId },
     });

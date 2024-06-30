@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import Styles from "./layout.module.scss";
-import { FaArrowRightToBracket, FaHouse, FaUser } from "react-icons/fa6";
+import {
+  FaArrowRightToBracket,
+  FaHouse,
+  FaMagnifyingGlass,
+  FaUser,
+} from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
 import { auth, signOut } from "@/auth";
@@ -29,9 +34,13 @@ const Layout = async ({ children }: Props) => {
             Profile
             <FaUser size={"30"} color={"#373a40"} />
           </Link>
+          <Link className={Styles.link} href="/search">
+            Search
+            <FaMagnifyingGlass size={"30"} color={"#373a40"} />
+          </Link>
         </div>
         <div className={Styles.profileCard}>
-          <Link href="/profile">
+          <Link href={`/users/${session.user.id}`}>
             <div className={Styles.profileCardUserInfo}>
               <Image
                 className={Styles.profileImage}

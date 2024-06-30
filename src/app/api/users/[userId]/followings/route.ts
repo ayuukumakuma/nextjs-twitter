@@ -1,15 +1,11 @@
 import { prisma } from "@/lib/prisma/client";
-import checkSession from "@/utils/checkSession";
 
 export const GET = async (
   _: Request,
   { params }: { params: { userId: string } },
 ) => {
   try {
-    const signInUser = await checkSession();
     const userId = params.userId;
-
-    if (signInUser.id !== userId) throw new Error("Unauthorized");
 
     const followings = (
       await prisma.follow.findMany({

@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma/client";
-import checkSession from "@/utils/checkSession";
 
 export const GET = async (
   _: Request,

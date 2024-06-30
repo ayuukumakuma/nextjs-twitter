@@ -1,9 +1,7 @@
 "use client";
-import { auth, signOut } from "@/auth";
 import Styles from "./page.module.scss";
 import Image from "next/image";
-import { Metadata } from "next";
-import { Post, User as UserType } from "@prisma/client";
+import { User as UserType } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
